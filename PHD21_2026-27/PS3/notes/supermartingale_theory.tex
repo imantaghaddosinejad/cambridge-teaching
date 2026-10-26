@@ -1,0 +1,144 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{remark}{Remark}
+
+\title{Non-negative Supermartingale Theorem}
+\author{Short Notes by Iman Taghaddosinejad}
+
+
+\begin{document}
+\maketitle
+Non-negative supermartingales arise naturally in dynamic macroeconomic models through 
+Euler inequalities and provide a useful way to establish the long-run convergence of 
+endogenous stochastic processes.
+
+\begin{theorem}[Non-negative supermartingale convergence theorem]\label{thm:nonnegsupermartingale}
+Let $X_t$ be a non-negative supermartingale such that $X_t\geq\mathbb{E}_t[X_{t+1}]$
+and $X_t\geq0$ for all $t\geq0$. Then, there exists a finite random variable 
+$X_\infty\geq0$ such that $X_t\to X_\infty$ a.s. as $t\to\infty$. Moreover, we have 
+$\mathbb{E}[X_\infty]\leq \mathbb{E}[X_0]$.
+\end{theorem}
+
+\begin{remark}[Intuition]
+Theorem \ref{thm:nonnegsupermartingale} states that if a random process is a 
+non-negative supermartingale then it converges almost surely (along any sequence with positive
+probability) to a finite non-negative (random variable) limit. The process will not diverge 
+to $\pm\infty$ or oscillate over some positive range $b-a$ with $b>a>0$ infinitely 
+often. 
+\end{remark}
+The proof of Theorem \ref{thm:nonnegsupermartingale} intuitively works in three steps. 
+First, we rule out divergence to $\pm\infty$ using basic properties of the process itself. 
+Second, we rule out persistent oscillations by showing that the process cannot upcross any 
+interval of positive width infinitely often. The key observation is that if
+$\liminf_{t\to\infty}X_t<\limsup_{t\to\infty}X_t$, then there must exist some interval 
+$[a,b]$ of positive width lying strictly between them that the process upcrosses infinitely often. 
+Thus, ruling out infinitely many upcrossings rules out any positive gap between the 
+$\liminf$ and $\limsup$. Finally, having ruled out both divergence and persistent oscillation, 
+we obtain $\liminf_{t\to\infty}X_t=\limsup_{t\to\infty}X_t <\infty$ a.s. and hence 
+$X_t$ converges to a finite limit almost surely.
+
+\begin{proof}[\textbf{Proof} (Sketch proof of Theorem \ref{thm:nonnegsupermartingale})]
+Let $X_t$ be a non-negative supermartingale. First we establish the process cannot diverge to 
+$\pm\infty$. Since $X_t\geq0$ for all $t\geq0$, we immediately have $\liminf_{t\to\infty} 
+X_t \geq 0$ a.s. Moreover, since $X_t\geq\mathbb{E}_t[X_{t+1}]$, taking the unconditional 
+expectation of both sides and using the law of iterated expectations (LIE) yields 
+$\mathbb{E}[X_t]\geq\mathbb{E}[X_{t+1}]$.
+Therefore, $\infty>\mathbb{E}[X_0]\geq\mathbb{E}[X_1]\geq\mathbb{E}[X_2]\geq\cdots\geq0$.
+Hence, $\mathbb{E}[X_t]$ is a decreasing sequence bounded below by zero 
+and therefore converges to some finite limit. Moreover, the sequence is uniformly bounded
+above, $\sup_{t\geq0}\mathbb{E}[X_t]=\mathbb{E}[X_0]<\infty$. Together with non-negativity, 
+this rules out the event $\mathcal{A}:=\{\omega:X_t(\omega)\to+\infty\}$, having positive
+probability. Otherwise, paths in $\mathcal{A}$ would make an arbitrarily large positive 
+contribution to the ensemble mean, while $X_t\geq0$ prevents this contribution from being 
+offset by negative realizations, contradicting the finite uniform bound on $\mathbb{E}[X_t]$.
+Hence, $\mathbb{P}(X_t\to+\infty)=0$. 
+
+Next we rule out persistent oscillations over any interval of positive width. Let $a<b$ 
+and suppose that $0\leq\liminf_{t\to\infty}X_t<a<b<\limsup_{t\to\infty}X_t$. Let 
+$U_T$ denote the number of completed upcrossings of the interval $[a,b]$ by time $T$ where 
+$0\leq U_1\leq U_2\leq\cdots\leq U_T$. 
+Further define the auxiliary process $H_t\in\{0,1\}$ such that $H_t=1$ if $X_t$ is in the 
+midst of an upcrossing of $[a,b]$ and $H_t=0$ otherwise. At any time $T\geq0$, 
+the process has therefore completed $U_T$ upcrossings and may additionally be in the 
+midst of at most one unfinished upcrossing. Let $s_i$ and $\tau_i$ denote the start and 
+completion times of the $i$-th completed upcrossing, respectively, so that $X_{s_i}\leq a$, 
+$X_{\tau_i}\geq b$, and hence $X_{\tau_i}-X_{s_i}\geq b-a$. If an unfinished upcrossing 
+remains at time $T$, let $s$ denote its starting time, so that $X_s\leq a$. Then
+we can define the sum of all contributions of upcrossings 
+{\footnotesize
+\begin{align*}
+    G_T&=\sum_{t=0}^{T-1}H_t(X_{t+1}-X_t) \\
+    &= \underbrace{H_0(X_1-X_0)+\cdots+H_{s-1}(X_s-X_{s-1})}_{\text{completed upcrossings}} 
+        + \underbrace{H_s(X_{s+1}-X_s)+\cdots+H_{T-1}(X_T-X_{T-1})}_{\text{unfinished crossing}} \\
+    &= \underbrace{\sum_{i=1}^{U_T} (X_{\tau_i}-X_{s_i})}_{\geq (b-a)U_T\geq0} 
+        + \underbrace{X_{T}-X_{s}}_{\geq-a} \\
+    &\geq (b-a)U_T - a,
+\end{align*}
+}%
+where the last inequality follows because $X_T\geq0$ and $X_s\leq a$. Furthermore, we can derive 
+an upper bound on the ensamble mean of $G_T$: 
+\begin{align*}
+    \mathbb{E}[G_T] &= \sum_{t=0}^{T-1} \mathbb{E}\bigl[H_t(X_{t+1}-X_t)\bigr] \\
+    &= \sum_{t=0}^{T-1}\mathbb{E}\Bigl[\mathbb{E}_t\bigl(H_t(X_{t+1}-X_t)\bigr)\Bigr] \\
+    &= \sum_{t=0}^{T-1}\mathbb{E}
+        \Bigl[
+        \underbrace{H_t}_{\geq0} 
+        \underbrace{\mathbb{E}_t(X_{t+1}-X_t)}_{\leq 0}
+        \Bigr] \\
+    &\leq 0,
+\end{align*}
+where the second equality uses the LIE, the third equality uses the fact that $H_t$ is 
+known at time $t$, and the last inequality uses the supermartingale property. 
+Combining the pathwise inequality for $G_T$ with the ensemble mean inequality yields
+$\mathbb{E}[U_T] \leq \frac{a}{b-a} < \infty$ for all $T\geq0$. Therefore, 
+$\sup_{t\geq0}\mathbb{E}[U_t]\leq \frac{a}{b-a} < \infty$.
+Since $U_T\geq0$, this uniform bound rules out any positive-probability set of paths 
+along which the number of completed upcrossings grows without bound. Thus, for the event
+$\mathcal{B}:=\{\omega:U_T(\omega)\to\infty\}$, we have $\mathbb{P}(\mathcal{B})=0$.
+Hence, with probability one, $X_t$ can complete only finitely many upcrossings of any 
+fixed interval $[a,b]$ of positive width. This contradicts the assumption 
+that $\liminf_{t\to\infty}X_t<\limsup_{t\to\infty}X_t$ since any positive gap contains 
+an interval of positive width that must be upcrossed infinitely often. Therefore,
+$0\leq\liminf_{t\to\infty}X_t=\limsup_{t\to\infty}X_t<+\infty$ a.s., and hence 
+$X_{t}\to X_{\infty}<\infty$ a.s. as $t\to\infty$. 
+\end{proof}
+
+\begin{remark}[Null sets, countability, and rational intervals]
+A subtle point in the upcrossing argument is that we do not establish that the set of paths
+which upcross a fixed interval $[a,b]$ infinitely often is empty. Rather, for each
+fixed $a<b$, we establish the weaker result that this set has probability zero.
+This distinction matters, as we do not rule out the existence of probability-zero paths.
+
+To pass from the result for each fixed interval to almost-sure convergence, let
+$\mathcal{C}:=\left\{\omega:\liminf_{t\to\infty}X_t(\omega) <\limsup_{t\to\infty}X_t(\omega)\right\}$, 
+and define the event 
+$\mathcal{B}_{a,b}:=\left\{\omega:U_T(\omega)\to\infty, \; \text{with} \; U_T \;\text{on}\; [a,b], \; a,b\in\mathbb{Q} \right\}$.
+For every path $\omega\in \mathcal{C}$, $\exists$ rationals $a<b$ satisfying 
+$\liminf_{t\to\infty}X_t<a<b<\limsup_{t\to\infty}X_t$, and hence $\omega\in\mathcal{B}_{a,b}$,
+Therefore,
+\[
+\mathcal{C}\subseteq
+\bigcup_{\substack{a,b\in\mathbb{Q},\\a<b}}\mathcal{B}_{a,b}.
+\]
+Moreover, $\mathbb{Q}$ is countably infinite, such that the collection of rational pairs $(a,b)$ is also countable. 
+Therefore,
+\[
+\mathbb{P}(\mathcal{C}) 
+\leq \mathbb{P}\left(\bigcup_{\substack{a,b\in\mathbb{Q},\\a<b}}\mathcal{B}_{a,b}\right)
+\leq\sum_{\substack{a,b\in\mathbb{Q},\\a<b}}\mathbb{P}(\mathcal{B}_{a,b})=0,
+\]
+where the first inequality uses monotonicity of probability, while the second uses
+countable subadditivity since the union is countable. 
+Thus, exceptional paths may exist, but the set containing all of them has probability zero.
+The use of $\mathbb{Q}$ ensures that every positive gap formed by a path in $\mathcal{C}$ 
+contains a rational interval, while being countable enough that the union of the corresponding 
+probability-zero events remains a probability-zero event.
+\end{remark}
+
+
+
+\end{document}
