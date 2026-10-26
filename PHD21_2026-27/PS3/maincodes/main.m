@@ -1,5 +1,5 @@
 %% Cambridge PHD21 Computational Methods 2026-27
-% Problem Set 2
+% Problem Set 3
 % Lecturer: Dr. Hanbaek Lee (https://sites.google.com/view/hanbaeklee/)
 % TA: Iman Taghaddosinejad (https://github.com/imantaghaddosinejad)
 %%
