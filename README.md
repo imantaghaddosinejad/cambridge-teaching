@@ -2,7 +2,7 @@
 
 Teaching notes and MATLAB problem-set solutions for the first-year PhD Computational Methods course (PHD21), University of Cambridge.
 
-- **Course lecturer:** Dr. ([Hanbaek Lee](https://sites.google.com/view/hanbaeklee/home))
+- **Course lecturer:** Dr. [Hanbaek Lee](https://sites.google.com/view/hanbaeklee/home)
 - **Teaching assistant:** Iman Taghaddosinejad.
 
 ## Contents
