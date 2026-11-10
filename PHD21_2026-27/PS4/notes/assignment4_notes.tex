@@ -1,0 +1,218 @@
+% Assignment 4 notes: standard notation for macroeconomic models
+\documentclass[12pt]{article}
+
+% Page layout and document quality
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{microtype}
+
+% Mathematics
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{bm}
+\usepackage{mathrsfs}
+\usepackage{dsfont}
+
+% Figures, tables, and lists
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{enumitem}
+
+% Links should be loaded near the end of the preamble
+\usepackage[hidelinks]{hyperref}
+
+% Common theorem environments
+\newtheorem{assumption}{Assumption}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\title{Assignment 4}
+\author{Notes by Iman Taghaddosinejad}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Model Notes (Aiyagari, 1994)}
+\paragraph{Households (time t problem):}
+\begin{align*}
+    v_t(a,z;\Phi_t) = 
+    \max_{c,a'}& \; \log{c} + \beta\mathbb{E}_{z'|z}\bigl[v_{t+1}(a',z';\Phi_{t+1})\bigr] \\
+    \text{s.t.}\quad c + a' &= w_t z + (1 + r_t)a, \\ 
+    a'\geq \underbar{a}&=0, \\
+    \log{z'} &= \rho\log{z} + \sigma\sqrt{1-\rho^2}\varepsilon', 
+    \quad \varepsilon'\sim\mathcal{N}(0,1), \\
+    \Phi_{t+1} &= G(\Phi_t,A_t), \quad a \; \text{given}.
+\end{align*}
+
+\paragraph{Firms:} 
+\begin{align*}
+    r_t &= \alpha A_t K_t^{\alpha-1}L_t^{1-\alpha} - \delta, \\
+    w_t &= (1-\alpha) A_t K_t^{\alpha}L_t^{-\alpha}. \\
+\end{align*}
+
+\paragraph{Markets:} 
+\begin{align*}
+    \int a'_t \, d\Phi_t &= K_{t+1},  \\
+    \int z \, d\Phi_t &= L_t = 1, \\
+    \int \bigl(c_t+a'_t\bigr) \, d\Phi_t &= A_tK_t^\alpha + (1-\delta) K_t,
+\end{align*}
+(goods market clearing) holds by Walras' law.
+
+\paragraph{Transitional Competitive Equilibrium (TCE):} 
+Let $S=\mathbb{A}\times Z$ with $\mathbb{A}=[\underline{a},\infty)$ and $Z$ 
+be the finite productivity grid. Given a TFP path $\{A_t\}_{t=1}^{T}$, an initial 
+distribution $\Phi_1$ and a terminal value function $v_{T+1}$, a \emph{TCE} is a sequence 
+of measurable functions $\{v_t,c_t,a'_t\}_{t=1}^{T}$ on $S$, measures $\{\Phi_t\}_{t=1}^{T}$ on 
+$(S,\mathcal{S})$ with $\mathcal{S}$ the Borel $\sigma$-algebra on $S$, and prices and aggregates 
+$\{r_t,w_t,K_t,L_t\}_{t=1}^{T}$ such that, for all $t$: 
+(i) $(c_t,a'_t)$ solve the household's problem given $(r_t,w_t)$ with associated value
+function $v_{t}$; 
+(ii) $(K_t,L_t)$ solve the representative firm's problem given $(r_t,w_t)$;
+(iii) $(r_t,w_t)$ clear capital and labor markets, respectively: 
+$K_{t+1}=\int_S a'_t\,d\Phi_t$ and $1=L_t=\int_S z\,d\Phi_t$, and goods market clears by 
+Walras' law such that $\int (c_t+a'_t) \,d\Phi_t = A_tK_t^\alpha + (1-\delta) K_t$;
+(iv) $\Phi_{t+1}(\mathcal{A}\times\{z'\})=\int_S\Gamma_{zz'}\,\mathds{1}\bigl(a'_t(a,z)\in\mathcal{A}\bigr)\,d\Phi_t(a,z)$ holds for all 
+$\mathcal{A}\in\mathcal{B}(\mathbb{A})$
+and $z'\in Z$, where 
+$\mathcal{B}(\mathbb{A})$ is the Borel $\sigma$-algebra on $\mathbb{A}$.
+
+\section{Topology Background}
+Consider the set $X$. Then $(X,\tau)$ is a \emph{topological space} if $\tau$ 
+is a collection of subsets of $X$ such that:
+\begin{enumerate}
+    \item $\varnothing, X \in \tau$.
+    \item If $\{A_i\}_{i\in I}\subseteq\tau$ for an arbitrary (finite, countable, or uncountable) 
+        index set $I$, then $\bigcup_{i\in I} A_i \in \tau$. 
+    \item If $A_1, A_2, \ldots, A_n \in \tau$ for some finite $n$, then 
+        $\bigcap_{i=1}^{n} A_i \in \tau$.
+\end{enumerate}
+Property 2 states that any union (finite, countable or uncountable) of sets in $\tau$ is also 
+in $\tau$, while property 3 states that any finite intersection of sets in $\tau$ is also in $\tau$.
+Properties 2--3 are closure properties. A collection $\tau$ satisfying 1--3 is called a 
+\emph{topology} on $X$, and its elements are called \emph{open sets} ($\tau$-open). 
+The smallest topology on $X$ is $\{\varnothing, X\}$, the \emph{trivial topology}; the largest 
+is $2^X$, the \emph{discrete topology}. A set $X$ can have many different topologies.
+
+A set $X$ together with a notion of distance $d$ defined on $X$ induces a topology 
+$\tau_d$ on $X$ which is the collection of \emph{all} $d$-open sets in $X$, where a set 
+$U\subseteq X$ is \emph{$d$-open} if for every $x\in U$ there exists $\varepsilon>0$ 
+such that $\mathbf{B}_d(x,\varepsilon)=\{y\in X: d(x,y)<\varepsilon\}\subseteq U$.
+One particular example is a \emph{metric space} $(X,d)$, where $d:X\times X\to\mathbb{R}_{+}$ is a 
+metric on $X$ satisfying the following properties:
+\begin{enumerate}
+    \item $d(x,y) = 0$ if and only if $x=y$ for all $x,y\in X$.
+    \item $d(x,y) = d(y,x)$ for all $x,y\in X$.
+    \item $d(x,z) \leq d(x,y) + d(y,z)$ for all $x,y,z\in X$ (triangle inequality).
+\end{enumerate}
+
+A \emph{$\sigma$-algebra} $\Sigma$ on $X$ is a collection of subsets of $X$ such that: 
+\begin{enumerate}
+    \item $\varnothing, X \in \Sigma$.
+    \item If $A\in\Sigma$, then $A^\complement = X\setminus A\in\Sigma$.
+    \item If $\{A_i\}_{i\in I}\subseteq\Sigma$ for a countable (finite or countably infinite) 
+        index set $I$, then $\bigcup_{i\in I} A_i \in \Sigma$.
+\end{enumerate}
+Properties 2--3 are closure properties such that $\Sigma$ is closed under complements and 
+countable unions. Together they imply closure under countable intersections. 
+By De Morgan's laws,
+\begin{align*}
+    \left(\bigcup_{i\in I} A_i\right)^\complement = \bigcap_{i\in I} A_i^\complement, \qquad
+    \left(\bigcap_{i\in I} A_i\right)^\complement = \bigcup_{i\in I} A_i^\complement,
+\end{align*}
+so for countable $I$ and $\{A_i\}_{i\in I}\subseteq\Sigma$,
+\begin{align*}
+    \bigcap_{i\in I} A_i = \left(\bigcup_{i\in I} A_i^\complement\right)^\complement \in \Sigma.
+    % \tag*{$\square$}
+\end{align*}
+
+The pair $(X,\Sigma)$ is called a \emph{measurable space}, and the 
+elements of $\Sigma$ are called \emph{measurable sets} ($\Sigma$-measurable). The smallest 
+$\sigma$-algebra on $X$ is $\{\varnothing, X\}$; the largest is $2^X$. A set $X$ can have many 
+different $\sigma$-algebras. A topology captures the notion of \emph{``nearness"} while a 
+$\sigma$-algebra captures the notion of \emph{``measurability"}. 
+
+Consider the set $X$ with a collection $\mathcal{C}$ of subsets of $X$. One particular 
+measurable space is $(X,\sigma(\mathcal{C}))$, where $\sigma(\mathcal{C})$, the $\sigma$-algebra 
+\emph{generated by} $\mathcal{C}$, is the smallest $\sigma$-algebra on $X$ containing $\mathcal{C}$. 
+That is, $\mathcal{C}\subseteq\sigma(\mathcal{C})$, and $\sigma(\mathcal{C})\subseteq\Sigma$ 
+for every $\sigma$-algebra $\Sigma$ on $X$ with $\mathcal{C}\subseteq\Sigma$. Thus, we can 
+nicely connect \emph{topological} and \emph{measurable} spaces by considering the 
+$\sigma$-algebra generated by the topology $\tau$ on $X$. This is called the 
+\emph{Borel $\sigma$-algebra} on $X$, denoted $\mathcal{B}(X)=\sigma(\tau)$.  
+
+From here on, let $(X,d)$ be a metric space with induced topology $\tau_d$, and work with the 
+measurable space $(X,\mathcal{B}(X))$, where $\mathcal{B}(X)=\sigma(\tau_d)$ is the smallest 
+$\sigma$-algebra on $X$ containing all open subsets of $X$. Its elements are the measurable 
+sets of $(X,\mathcal{B}(X))$, called \emph{Borel sets}. 
+A \emph{measure} on a measurable space $(X,\mathcal{B}(X))$ is a function 
+$\mu:\mathcal{B}(X)\to[0,\infty]$ such that:
+\begin{enumerate}
+    \item $\mu(\varnothing)=0$.
+    \item If $\{A_i\}_{i\in I}\subseteq\mathcal{B}(X)$ for a countable index set $I$ and the $A_i$ are pairwise 
+        disjoint ($A_i\cap A_j=\varnothing$ for $i\neq j$), then 
+        $\mu\bigl(\bigcup_{i\in I}A_i\bigr)=\sum_{i\in I}\mu(A_i)$ (countable additivity).
+\end{enumerate}
+The triple $(X,\mathcal{B}(X),\mu)$ is called a \emph{measure space}. If in addition $\mu(X)=1$, then $\mu$ is 
+a \emph{probability measure} and $(X,\mathcal{B}(X),\mu)$ is a \emph{probability space}.
+
+The $\sigma$-algebra properties are exactly what a measure requires of its inputs. Countable additivity 
+asks for $\mu\bigl(\bigcup_i A_i\bigr)$, so countable unions of measurable sets must be measurable. 
+When $\mu(X)<\infty$, $\mu(A^\complement)=\mu(X)-\mu(A)$, so complements of measurable sets must be 
+measurable. Standard examples are the counting measure ($\mu(A)$ is the number of points in $A$), 
+a point mass $\delta_x$ ($\delta_x(A)=1$ if $x\in A$ and $0$ otherwise), and Lebesgue measure on 
+$(\mathbb{R},\mathcal{B}(\mathbb{R}))$, which assigns each interval its length.
+
+To integrate a function $f:X\to\mathbb{R}$ against $\mu$, the measure must be able to weigh every 
+preimage of a Borel set under $f$:
+\begin{align*}
+    f^{-1}(B)=\{x\in X: f(x)\in B\}\in\mathcal{B}(X), 
+        \qquad \text{for all } B\in\mathcal{B}(\mathbb{R}).
+\end{align*}
+Such functions are called \emph{measurable}: every Borel set of the codomain of $f$ has its preimage 
+in the Borel $\sigma$-algebra of the domain of $f$. Measurability is the condition needed for 
+$\int_X f\,d\mu$ to make sense. 
+Moreover, every continuous function is measurable, since preimages of open sets are 
+open, hence Borel.
+
+The integral is built from the measure $\mu$. It is value times mass, summed over $X$. The simplest 
+function asks only whether $x$ lies in a Borel set $A\in\mathcal{B}(X)$, and its integral is 
+the mass of that set:
+\begin{align*}
+    \int_X \mathds{1}(x\in A)\,d\mu(x) = \mu(A).
+\end{align*}
+If $\mu$ puts mass $m_j$ on finitely many points $x_j$, i.e. $\mu(\{x_j\})=m_j$ for finitely 
+many points $x_1,\dots,x_n$ and $\mu\bigl(X\setminus\{x_1,\dots,x_n\}\bigr)=0$, 
+then $\int_X f(x)\,d\mu(x)=\sum_{j=1}^{n} f(x_j)\,m_j$.
+
+\paragraph{Application to the TCE.} The individual state space is $S=\mathbb{A}\times Z$, with 
+$\mathbb{A}=[\underline{a},\infty)$ carrying its usual metric and $Z$ finite. 
+Its Borel $\sigma$-algebra is $\mathcal{S}=\mathcal{B}(\mathbb{A})\otimes2^{Z}$, 
+generated by the sets $B\times\{z\}$ with $B\in\mathcal{B}(\mathbb{A})$ and $z\in Z$. 
+Each $\Phi_t$ is a probability measure on $(S,\mathcal{S})$, such that $(S,\mathcal{S},\Phi_t)$ 
+is a probability space. 
+Stating $\mathcal{S}$ ensures that $K_{t+1}=\int_S a'_t\,d\Phi_t$ 
+and $L_t=\int_S z\,d\Phi_t$ are defined, and that the law of motion is well defined:
+\begin{align*}
+    \Phi_{t+1}(\mathcal{A}\times\{z'\})
+    =\int_S \Gamma_{zz'}\,\mathds{1}\bigl(a'_t(a,z)\in\mathcal{A}\bigr)\,d\Phi_t(a,z),
+    \qquad \mathcal{A}\in\mathcal{B}(\mathbb{A}),\ z'\in Z.
+\end{align*}
+The left-hand side is defined since $\mathcal{A}\times\{z'\}\in\mathcal{S}$. The right-hand side 
+is defined since its integrand is measurable: (i) the policy $a'_t$ is continuous, hence 
+measurable, so the set of states that $a'_t$ maps into $\mathcal{A}$,
+given by $\{(a,z)\in S: a'_t(a,z)\in\mathcal{A}\}=(a'_t)^{-1}(\mathcal{A})$,
+is a Borel set, (ii) the indicator of a Borel set is measurable,
+ and (iii) $z\mapsto\Gamma_{zz'}$ 
+is measurable, as is any function on a finite set. A product of measurable functions is measurable. 
+Since this holds for every $\mathcal{A}\in\mathcal{B}(\mathbb{A})$ and $z'\in Z$, $\Phi_{t+1}$ is 
+again a probability measure on $(S,\mathcal{S})$, and the recursion is well defined along the 
+transition path. On the grid, $\Phi_t$ puts mass $m^t_{ij}$ on each node $(a_i,z_j)$, so 
+$\int_S f(a,z)\,d\Phi_t=\sum_{i,j}f(a_i,z_j)\,m^t_{ij}$.
+\end{document}
